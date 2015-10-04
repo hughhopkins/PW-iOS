@@ -75,19 +75,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         var pass: String = passwordInput.text!
         var srvLower = srv.lowercaseString
         var pw = "\(srvLower)" + "||" + "\(pass)" + "||"
-        var pwHash = "\(pw)".sha1()
+        var pwHash = "\(pw)".sha1()!
+        print("\(pwHash)")
         var pwString = String(pwHash)
         var pwLowered = pwString.lowercaseString
-        let pwLoweredArray = ["\(pwLowered)"]
+        var index = 0
         
         func updateTwo() {
-            for (index, char) in pwLoweredArray.enumerate() {
-                var s = "\(char)"
-                if index%2 == 0 {
+            for string in pwLowered.characters {
+                var s = "\(string)"
+                if index % 2 == 0 {
                     pwNew += s.uppercaseString
+                    print("shit happening")
                 } else {
                     pwNew += s
+                    print("other shit happening")
                 }
+                index++;
             }
             pwOutput.text = pwNew
         }
