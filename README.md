@@ -2,11 +2,12 @@
 
 __When Xcode asks you if you want to update the CryptoSwift module to the latest Swift syntax, Don't!__
 
-Available on the App Store: https://itunes.apple.com/app/apple-store/id981716752?pt=117760826&ct=GitHub&mt=8.
+- Available on the App Store: https://itunes.apple.com/app/apple-store/id981716752?pt=117760826&ct=GitHub&mt=8.
 
-Based on https://github.com/simontabor/pw and outputs the same passwords.
+## Credits
 
-Big up to https://github.com/krzyzanowskim/CryptoSwift for hashing.
+- Based on https://github.com/simontabor/pw and outputs the same passwords.
+- Big up to https://github.com/krzyzanowskim/CryptoSwift for hashing.
 
 ## What is it?
 
