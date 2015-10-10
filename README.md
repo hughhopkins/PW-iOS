@@ -3,6 +3,7 @@
 __When Xcode asks you if you want to update the CryptoSwift module to the latest Swift syntax, Don't!__
 
 - Available on the App Store: https://itunes.apple.com/app/apple-store/id981716752?pt=117760826&ct=GitHub&mt=8.
+- Always online at: http://pwapp.io.
 
 ## Credits
 
