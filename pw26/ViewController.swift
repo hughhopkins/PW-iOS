@@ -75,7 +75,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         var srvLower = srv.lowercaseString
         var pw = "\(srvLower)" + "||" + "\(pass)" + "||"
         var pwHash = "\(pw)".sha1()!
-        print("\(pwHash)")
         var pwString = String(pwHash)
         var pwLowered = pwString.lowercaseString
         var index = 0
