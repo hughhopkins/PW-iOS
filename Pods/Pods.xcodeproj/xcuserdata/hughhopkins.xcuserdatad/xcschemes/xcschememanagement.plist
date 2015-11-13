@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-GoSquared.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17FECA1A9D6FD888766BE35A</key>
+		<key>AF684088661A33A10287E479</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66002E3D8AD2BFF212A68B2D</key>
+		<key>BA4787697C9EE87673EFD4B0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F3956C40094C3035552A54D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
