@@ -1,0 +1,6 @@
+framework module GoSquared {
+  umbrella header "Pods-GoSquared-umbrella.h"
+
+  export *
+  module * { export * }
+}

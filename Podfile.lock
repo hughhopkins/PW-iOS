@@ -1,10 +1,13 @@
 PODS:
-  - CryptoSwift (0.0.16)
+  - CryptoSwift (0.1.1)
+  - GoSquared/Autoload (0.0.1)
 
 DEPENDENCIES:
   - CryptoSwift
+  - GoSquared/Autoload
 
 SPEC CHECKSUMS:
-  CryptoSwift: 05b7e813763fc7a0e8726e962365d6e09f091098
+  CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
+  GoSquared: 2c0b966b7cc70cbfe08e04f55314360446188049
 
 COCOAPODS: 0.37.0

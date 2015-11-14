@@ -11,7 +11,6 @@ import CryptoSwift
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    
     // animation elements
     @IBOutlet var container: UIView!
     @IBOutlet var containerSub: UIView!
@@ -46,16 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    // declare vars
-    var pw: String = ""
-    var srv: String = ""
-    var srvLower: String = ""
-    var pass: String = ""
-    var pwFirst: String = ""
-    var pwLowered: String = ""
-    var pwNew: String = ""
-    var pwHash: String = ""
-    var pwString: String = ""
+    
     
     @IBOutlet var pwOutput: UILabel!
     
@@ -69,27 +59,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
         update()
     }
     
-    // Code
+    //
+    var pwNew: String = ""
+    
+    // pw code
     func update() {
         var srv: String = serviceInput.text!
         var pass: String = passwordInput.text!
         var srvLower = srv.lowercaseString
-        var pw = "\(srvLower)" + "||" + "\(pass)" + "||"
-        var pwHash = "\(pw)".sha1()!
-        print("\(pwHash)")
+        var pwHash = "\(srvLower)||\(pass)||".sha1()
         var pwString = String(pwHash)
         var pwLowered = pwString.lowercaseString
         var index = 0
         
         func updateTwo() {
             for string in pwLowered.characters {
-                var s = "\(string)"
+                let s = "\(string)"
                 if index % 2 == 0 {
                     pwNew += s.uppercaseString
-                    print("shit happening")
                 } else {
                     pwNew += s
-                    print("other shit happening")
                 }
                 index++;
             }
