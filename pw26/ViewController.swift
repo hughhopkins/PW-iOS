@@ -8,6 +8,7 @@
 
 import UIKit
 import CryptoSwift
+import GoSquared
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -15,6 +16,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var container: UIView!
     @IBOutlet var containerSub: UIView!
     @IBOutlet var containerSubSub: UIView!
+    
+    // GoSquared Chat
+    @IBAction func GoSquaredChatButton(sender: AnyObject) {
+        self.gs_presentChatViewController();
+    }
     
     // copy element
     @IBOutlet var copyToStyle: UIButton!

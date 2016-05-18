@@ -18,8 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        GoSquared.sharedTracker().siteToken = "GSN-720164-W"
-        GoSquared.sharedTracker().apiKey    = "2FGMDHFRQO2MJEO7"
+        GoSquared.sharedTracker().token = "GSN-720164-W"
+        GoSquared.sharedTracker().key    = "2FGMDHFRQO2MJEO7"
+        
+        // this sets the title that is displayed at the top of the view controller
+        GoSquared.sharedChatViewController().title = "Chatting with Support"
+        
+        // this opens the connection for chat, showing the user as online, and
+        // loading messages they missed while the app was closed
+        GoSquared.sharedChatViewController().openConnection()
         
         return true
     }

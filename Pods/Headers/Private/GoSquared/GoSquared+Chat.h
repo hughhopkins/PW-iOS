@@ -1,0 +1,1 @@
+../../../GoSquared/GoSquared+Chat/GoSquared+Chat.h

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -91,10 +91,20 @@
                                     <action selector="animateButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="dSd-aO-sjf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wQ-V1-3o2">
+                                <rect key="frame" x="20" y="550" width="46" height="30"/>
+                                <state key="normal" title="Chat">
+                                    <color key="titleColor" red="0.98218561065273347" green="0.98971907781747592" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="GoSquaredChatButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="w4L-eP-55c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.53725490200000003" green="0.27058823529999998" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="GUh-CF-Eht" secondAttribute="centerX" id="2dH-Vt-mqD"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="2wQ-V1-3o2" secondAttribute="leading" id="2oH-q8-iZU"/>
                             <constraint firstItem="rVV-mi-nX8" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="2wy-9R-jtg"/>
                             <constraint firstAttribute="centerX" secondItem="Yhj-aR-RJw" secondAttribute="centerX" id="6tV-f9-Pd6"/>
                             <constraint firstAttribute="centerX" secondItem="JF1-aI-goi" secondAttribute="centerX" id="6xh-Vd-BWd"/>
@@ -103,6 +113,7 @@
                             <constraint firstItem="STC-Ww-l3A" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Bnf-pt-hLa"/>
                             <constraint firstItem="WKY-1Z-7YK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="EJa-pL-DSu"/>
                             <constraint firstItem="rVV-mi-nX8" firstAttribute="bottom" secondItem="WKY-1Z-7YK" secondAttribute="bottom" id="LMo-7E-kIO"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="2wQ-V1-3o2" secondAttribute="bottom" constant="20" id="MlQ-9k-d89"/>
                             <constraint firstItem="4im-rg-5t5" firstAttribute="top" secondItem="Yhj-aR-RJw" secondAttribute="bottom" constant="15" id="Trm-g6-unE"/>
                             <constraint firstAttribute="centerX" secondItem="rVV-mi-nX8" secondAttribute="centerX" id="V5Z-TG-Wzl"/>
                             <constraint firstItem="WKY-1Z-7YK" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="ZIw-jc-71z"/>

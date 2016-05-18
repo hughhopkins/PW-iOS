@@ -4,32 +4,31 @@
 //
 //  Created by Giles Williams on 12/10/2014.
 //  Copyright (c) 2014 Urban Massage. All rights reserved.
-//  Copyright (c) 2015 Go Squared Ltd. All rights reserved.
+//  Copyright (c) 2015-2016 Go Squared Ltd. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-enum GSRequestMethod {
+#import "GSLogLevel.h"
+
+typedef NS_ENUM(NSInteger, GSRequestMethod) {
     GSRequestMethodGET,
     GSRequestMethodPUT,
     GSRequestMethodPOST,
     GSRequestMethodDELETE
 };
 
-@class GSRequest;
-typedef void (^GSRequestBlock)(bool success, GSRequest *req);
+typedef void (^GSRequestCompletionBlock)(NSDictionary  * _Nullable data, NSError * _Nullable error);
+
 
 @interface GSRequest : NSObject
 
-@property (strong, nonatomic) NSHTTPURLResponse *response;
-@property (strong, nonatomic) NSMutableData *responseData;
+@property GSLogLevel logLevel;
 
-@property BOOL success;
++ (nonnull instancetype)requestWithMethod:(GSRequestMethod)method path:(nonnull NSString *)path body:(nullable NSDictionary *)body;
++ (nonnull instancetype)requestWithMethod:(GSRequestMethod)method URL:(nonnull NSURL *)URL body:(nullable NSDictionary *)body;
 
-+ (GSRequest *)requestWithMethod:(enum GSRequestMethod)method path:(NSString *)path body:(NSDictionary *)body;
-
-- (void)sendWithCompletionHandler:(GSRequestBlock)cb;
 - (void)send;
-- (void)sendSync;
+- (void)sendWithCompletionHandler:(nullable GSRequestCompletionBlock)completionHandler;
 
 @end

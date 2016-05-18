@@ -4,35 +4,85 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-CryptoSwift.xcscheme</key>
+		<key>Analytics.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
-		<key>Pods-GoSquared.xcscheme</key>
+		<key>CryptoSwift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FLAnimatedImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoSquared.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PINRemoteImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SocketRocket.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>AF684088661A33A10287E479</key>
+		<key>34C073D448A23CA3A97EA55CC489BD6F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA4787697C9EE87673EFD4B0</key>
+		<key>38A5CB8DD871E0C5D1E09A63048B9E01</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F3956C40094C3035552A54D8</key>
+		<key>6D822D4B1194D43CCDA520B003998C91</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B64B2502E33D6D3BD0006DC60B07F3F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2CD034A7DC76E3C1353A9B8D01B0B7C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C32860A4C69325CF3A97F29B055096E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C9D3E49C01050D6101129732B26C6BCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE113CEF81C16AA59EC049ACE130BCB2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

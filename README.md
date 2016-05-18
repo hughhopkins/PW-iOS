@@ -18,7 +18,7 @@ Simply enter a service and then a password. PW will then hash it using SHA1 and 
 
 ## How does it work?
 
-PW takes the two inputs Service and Password and runs it through a SHA1 hash with four pipes thrown in to make it a little interesting:
+PW takes the two inputs Service (the service is always converted to lowercase) and Password and runs it through a SHA1 hash with four pipes thrown in to make it a little interesting:
 
 SHA1(“Service” + “||” + “Password” + “||”)
 
@@ -29,3 +29,9 @@ SHA1(facebook||hackference||)
 and output:
 
 762b679fA17b10D6Cc2d2194542d2235738b3e33
+
+## Further Links
+
+- Android App -> https://github.com/hughhopkins/PW-Android
+- OS X App -> https://github.com/hughhopkins/PW-OSX
+- Website -> https://github.com/hughhopkins/PW-Site
