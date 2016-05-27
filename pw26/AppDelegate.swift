@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoSquared.sharedTracker().token = "GSN-720164-W"
         GoSquared.sharedTracker().key    = "2FGMDHFRQO2MJEO7"
+        GoSquared.sharedTracker().logLevel = .Debug
         
         // this sets the title that is displayed at the top of the view controller
         GoSquared.sharedChatViewController().title = "Chatting with Support"

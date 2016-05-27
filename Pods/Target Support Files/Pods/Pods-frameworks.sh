@@ -84,7 +84,6 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods/Analytics.framework"
   install_framework "Pods/CryptoSwift.framework"
   install_framework "Pods/FLAnimatedImage.framework"
   install_framework "Pods/GoSquared.framework"
@@ -93,7 +92,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/SocketRocket.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods/Analytics.framework"
   install_framework "Pods/CryptoSwift.framework"
   install_framework "Pods/FLAnimatedImage.framework"
   install_framework "Pods/GoSquared.framework"
