@@ -1,7 +1,5 @@
 # PW-iOS
 
-__When Xcode asks you if you want to update the CryptoSwift module to the latest Swift syntax, Don't!__
-
 - Available on the App Store: https://itunes.apple.com/app/apple-store/id981716752?pt=117760826&ct=GitHub&mt=8.
 - Always online at: http://pwapp.io.
 
@@ -22,7 +20,7 @@ PW takes the two inputs Service (the service is always converted to lowercase) a
 
 SHA1(“Service” + “||” + “Password” + “||”)
 
-For example with the service “facebook” and the password “hackference” it would be:
+For example with the service “Facebook” and the password “hackference” it would be:
 
 SHA1(facebook||hackference||)
 
