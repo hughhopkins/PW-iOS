@@ -13,7 +13,7 @@
 		00A880FA1ACB2E0E00599E3C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A880F91ACB2E0E00599E3C /* Images.xcassets */; };
 		00A880FD1ACB2E0E00599E3C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00A880FB1ACB2E0E00599E3C /* LaunchScreen.xib */; };
 		00A881091ACB2E0E00599E3C /* pw26Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A881081ACB2E0E00599E3C /* pw26Tests.swift */; };
-		6C4EC2D0CDB175BDE9FE6AF4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DA8478A80D9C4F904BE769 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		6C4EC2D0CDB175BDE9FE6AF4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DA8478A80D9C4F904BE769 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

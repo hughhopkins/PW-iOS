@@ -1,1 +1,1 @@
-../../../GoSquared/GoSquared/Categories/UIViewController+GSTracking.h
+../../../GoSquared/GoSquared/Autoload/UIViewController+GSTracking.h

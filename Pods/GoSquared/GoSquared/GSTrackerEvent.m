@@ -9,50 +9,44 @@
 
 #import "GSTrackerEvent.h"
 
-@implementation GSTrackerEvent {
+@implementation GSTrackerEvent
 
++ (GSTrackerEvent *)eventWithName:(NSString *)name properties:(NSDictionary *)properties
+{
+    GSTrackerEvent *event = [[GSTrackerEvent alloc] init];
+
+    event.name = name;
+    event.properties = properties;
+
+    return event;
 }
 
-@synthesize name = _name;
-@synthesize properties = _properties;
+- (NSDictionary *)serializeWithVisitorId:(NSString *)visitorId personId:(NSString *)personId pageIndex:(NSNumber *)pageIndex;
+{
+    NSMutableDictionary *event = [[NSMutableDictionary alloc] init];
 
-+ (GSTrackerEvent *)eventWithName:(NSString *)name {
-    GSTrackerEvent *e = [[GSTrackerEvent alloc] init];
+    event[@"name"] = self.name;
 
-    if(e) {
-        [e setName:name];
+    if (self.properties) {
+        event[@"data"] = self.properties;
     }
 
-    return e;
-}
+    NSMutableDictionary *body = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                @"visitor_id": visitorId, // anonymous user ID
+                                                                                @"event": event           // json object for event
+                                                                                }];
 
-- (void)setName:(NSString *)name {
-    _name = name;
-}
 
-- (NSString *)name {
-    return _name;
-}
+    body[@"page"] = @{ @"index": pageIndex };
 
-- (void)setProperties:(NSDictionary *)properties {
-    _properties = properties;
-}
-
-- (NSDictionary *)properties {
-    return _properties;
-}
-
-- (NSDictionary *)serialize {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-
-    if(self.name != nil && [self.name isKindOfClass:[NSString class]]) {
-        dict[@"name"] = self.name;
-    }
-    if(self.properties) {
-        dict[@"data"] = self.properties;
+    if (personId != nil) {
+        body[@"person_id"] = personId;
     }
 
-    return [NSDictionary dictionaryWithDictionary:dict];
+    // detect location from request IP
+    body[@"ip"] = @"detect";
+
+    return [NSDictionary dictionaryWithDictionary:body];
 }
 
 @end

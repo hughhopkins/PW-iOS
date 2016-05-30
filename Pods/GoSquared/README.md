@@ -1,12 +1,12 @@
 # GoSquared iOS
 
-**This is an early beta, please open an issue if you find anything not working, or to leave feedback for improvement. You can also get in touch directly: <ed@goquared.com>**
+**This is an early beta, please open an issue if you find anything not working, or to leave feedback for improvement. You can also get in touch directly: <ed@gosquared.com>.**
 
 ## Installation
 
 ### Installing with CocoaPods (Recommended)
 
-1. Install CocoaPods using `gem install cocoapods`.
+1. Install [CocoaPods](https://cocoapods.org) using `gem install cocoapods`.
 2. Create a new Podfile using `pod init`.
 3. There are two options for adding GoSquared to your Podfile:
  - If you want automatic tracking of your views, add `pod 'GoSquared/Autoload'`
@@ -15,9 +15,9 @@
 
 ### Installing with Carthage
 
-> **Note**: By using carthage you will be unable to use the `UIViewController` category to automatically implement GoSquared pageview tracking. If you want this, please use CocoaPods, or install manually.
+Installation with [Carthage](https://github.com/Carthage/Carthage) is supported, however automatic view tracking will not be available. As such, you'll need to call `trackScreen:` on each of your ViewControllers.
 
-**[Read the instructions provided by Carthage](https://github.com/Carthage/Carthage)**
+For instructions using Carthage, [please read their documentation](https://github.com/Carthage/Carthage).
 
 ## Configuration
 
@@ -32,9 +32,16 @@ Make sure you initialise the library with your site token before calling any tra
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[[GoSquared sharedTracker] setSiteToken:@"your-site-token"];
-	[[GoSquared sharedTracker] setApiKey:@"your-api-key"];
-	
+    [GoSquared sharedTracker].token = @"your-site-token";
+    [GoSquared sharedTracker].key   = @"your-api-key";
+
+    // optionally set logging level: Debug, Quiet (Default), Silent
+    [GoSquared sharedTracker].logLevel = GSLogLevelDebug;
+    
+    // if your app primarily runs in the background and you want visitors to show in
+    // your Now dashboard, you should set the following to `YES` (default: NO) 
+    [GoSquared sharedTracker].shouldTrackInBackground = YES;
+
     return YES;
 }
 ```
@@ -48,8 +55,15 @@ import GoSquared
 
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-    GoSquared.sharedTracker().siteToken = "your-site-token"
-    GoSquared.sharedTracker().apiKey    = "your-api-key"
+    GoSquared.sharedTracker().token = "your-site-token"
+    GoSquared.sharedTracker().key   = "your-api-key"
+
+    // optionally set logging level: Debug, Quiet (Default), Silent
+    GoSquared.sharedTracker().logLevel = .Debug
+    
+    // if your app primarily runs in the background and you want visitors to show in
+    // your Now dashboard, you should set the following to `true` (default: false) 
+    GoSquared.sharedTracker().shouldTrackInBackground = true
 
     return true
 }
@@ -62,6 +76,43 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 > **Note**: This is only available if you installed with CocoaPods.
 
 Make sure you're using the `GoSquared/Autoload` subspec in your Podfile. Configure your Site Token and API Key as described above, and you're good to go!
+
+If needed, you can disable tracking on indiviual ViewControllers, or set a custom title:
+
+**Objective-C:**
+
+```objc
+#import <GoSquared/GoSquared.h>
+
+// ...
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // use this to override the title property on a ViewController class
+    self.trackingTitle = @"My Custom Title";
+    // set this to YES to disable tracking for a particular ViewController
+    self.doNotTrack = YES;
+}
+
+```
+
+**Swift:**
+
+```swift
+import GoSquared
+
+// ...
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    // use this to override the title property on a ViewController class
+    self.trackingTitle = "My Custom Title";
+    // set this to true to disable tracking for a particular ViewController
+    self.doNotTrack = true;
+}
+```
 
 ### Manual Page View Tracking
 
@@ -76,9 +127,8 @@ You can use one of the below methods to manually track a UIViewController:
 
 - (void)viewDidAppear
 {
-    [[GoSquared sharedTracker] trackViewController:self];
-    [[GoSquared sharedTracker] trackViewController:self withTitle:@"Manually set title"];
-    [[GoSquared sharedTracker] trackViewController:self withTitle:@"Manually set title" urlPath:@"/custom-url-path"];
+    [[GoSquared sharedTracker] trackScreen:self.title];
+    [[GoSquared sharedTracker] trackScreen:self.title withPath:@"/custom-url-path"];
 }
 ```
 
@@ -90,11 +140,10 @@ import GoSquared
 // ...
 
 override func viewDidAppear(animated: Bool) {
-	super.viewDidAppear(animated)
-	
-	GoSquared.sharedTracker().trackViewController(self)
-	GoSquared.sharedTracker().trackViewController(self, withTitle: "Manually set title")
-	GoSquared.sharedTracker().trackViewController(self, withTitle: "Manually set title", urlPath:"/custom-url-path")
+    super.viewDidAppear(animated)
+
+    GoSquared.sharedTracker().trackScreen(self.title)
+    GoSquared.sharedTracker().trackScreen(self.title, withPath:"/custom-url-path")
 }
 
 ```
@@ -106,50 +155,56 @@ override func viewDidAppear(animated: Bool) {
 **Objective-C:**
 
 ```objc
-GSTrackerEvent *event = [GSTrackerEvent eventWithName:@"test-event"];
-[[GoSquared sharedTracker] trackEvent:event];
+[[GoSquared sharedTracker] trackEvent:"event name"];
 ```
 
 **Swift:**
 
 ```swift
-let event = GSTrackerEvent(name: "test-event")
-GoSquared.sharedTracker().trackEvent(event)
+GoSquared.sharedTracker().trackEvent("event name")
 ```
-    
+
 ### Track an event with properties
 
 **Objective-C:**
 
 ```objc
-GSTrackerEvent *event = [GSTrackerEvent eventWithName:@"test-event"];
-event.properties = @{ @"properties": @"are cool" };
-[[GoSquared sharedTracker] trackEvent:event];
+[[GoSquared sharedTracker] trackEvent:@"event name" properties:@{ @"properties": @"are cool" }];
 ```
 
 **Swift:**
 
 ```swift
-let event = GSTrackerEvent(name: "test-event")
-event.properties = ["properties": "are cool"]
-GoSquared.sharedTracker().trackEvent(event)
+GoSquared.sharedTracker().trackEvent("event name", properties: ["properties": "are cool"])
 ```
 
 ## People
 
 ### Identify your user
-*Note the library caches your identified user ID and uses it again on the next launch. If you do not want this behavior, call unidentify after `setSiteToken` on each launch.*
+To identify a user you will need to provide a `person_id`. This will create a new profile in [GoSquared People](https://www.gosquared.com/customer/en/portal/articles/2170492-an-introduction-to-gosquared-people) where all of the user's session data, events and custom properties will be tracked.
+
+The `person_id` can be set to an email address by using the prefix `email:` (see example below).
+
+*Note the library caches your identified person_id and uses it again on the next launch. If you do not want this behavior, call `unidentify` after setting the `token` on each launch.*
 
 **Objective-C:**
 
 ```objc
-[[GoSquared sharedTracker] identify:@"test-user-id" properties:@{ @"name": @"Test User" }];
+// identify with id
+[[GoSquared sharedTracker] identify:@"test-person_id" properties:@{ @"name": @"Test User" }];
+
+// identify with email
+[[GoSquared sharedTracker] identify:@"email:user@example.com" properties:@{ @"name": @"Test User" }];
 ```
 
 **Swift:**
 
 ```swift
-GoSquared.sharedTracker().identify("test-user-id", properties: ["name" : "Test User"])
+// idenitfy with id
+GoSquared.sharedTracker().identify("test-person_id", properties: ["name" : "Test User"])
+
+// identify with email
+GoSquared.sharedTracker().identify("email:user@example.com", properties: ["name": "Test User"]);
 ```
 
 ### Unidentify (e.g. on logout)
@@ -173,31 +228,19 @@ GoSquared.sharedTracker().unidentify();
 **Objective-C:**
 
 ```objc
-GSTransactionItem *item = [[GSTransactionItem alloc] init];
-item.price = [NSNumber numberWithFloat:20.0f];
-item.quantity = [NSNumber numberWithInt:2];
-item.revenue = [NSNumber numberWithFloat:40.0f]; // auto calculated as price * quantity if not set
-item.name = @"here's an item!";
+GSTransactionItem *coke = [GSTransactionItem transactionItemWithName:@"Coca Cola"
+                                                               price:@0.99
+                                                            quantity:@6];
 
-GSTransaction *tx = [GSTransaction transactionWithID:@"my-transaction"];
-[tx addItem:item];
-
-[[GoSquared sharedTracker] trackTransaction:tx];
+[[GoSquared sharedTracker] trackTransaction:@"unique-id" items: @[ coke ]];
 ```
 
 **Swift:**
 
 ```swift
-let item = GSTransactionItem()
-item.price = 20.0
-item.quantity = 2
-item.revenue = 40.0 // auto calculated as price * quantity if not set
-item.name = "here's an item!"
+let coke = GSTransactionItem(name: "Coca Cola", price: 0.99, quantity: 6)
 
-let tx = GSTransaction(ID: "my-transaction")
-tx.addItem(item)
-
-GoSquared.sharedTracker().trackTransaction(tx)
+GoSquared.sharedTracker().trackTransaction("unique-id", items: [coke])
 ```
 
 ## Code of Conduct
@@ -209,3 +252,7 @@ Please see [CODE\_OF\_CONDUCT.md](https://github.com/gosquared/gosquared-ios/blo
 ## License
 
 The MIT License (MIT)
+
+## Credits
+
+Thanks to Giles Williams of [Urban Massage](http://urbanmassage.com) for building the initial version of this library and allowing us to take it over.

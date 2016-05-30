@@ -8,6 +8,7 @@
 
 import UIKit
 import CryptoSwift
+import GoSquared
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -16,17 +17,34 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var containerSub: UIView!
     @IBOutlet var containerSubSub: UIView!
     
+    // GoSquared Chat
+    @IBAction func presentGoSquaredChat(sender: AnyObject) {
+        self.gs_presentChatViewController();
+    }
+    
     // copy element
     @IBOutlet var copyToStyle: UIButton!
+    @IBOutlet weak var chatButton: UIButton!
+    @IBOutlet weak var pwappLinkButton: UIButton!
+    
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         serviceInput.autocorrectionType = UITextAutocorrectionType.No
         serviceInput.autocapitalizationType = UITextAutocapitalizationType.None
-        super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         serviceInput.delegate = self
         passwordInput.delegate = self
         copyToStyle.layer.cornerRadius = 5
+        chatButton.layer.cornerRadius = 5
+        pwappLinkButton.layer.cornerRadius = 5
+        
+        let notifCenter = NSNotificationCenter.defaultCenter()
+        let notifHandler = #selector(ViewController.unreadNotificationHandler(_:))
+        
+        notifCenter.addObserver(self, selector: notifHandler, name: GSUnreadMessageNotification, object:nil)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -80,7 +98,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     pwNew += s
                 }
-                index++;
+                index += 1;
             }
             pwOutput.text = pwNew
         }
@@ -119,6 +137,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 // any code entered here will be applied
                 // .once the animation has completed
         })
+    }
+    
+    
+    // function for handling notification
+    func unreadNotificationHandler(notification: NSNotification) {
+        let count = notification.userInfo![GSUnreadMessageNotificationCount]
+        // update ui with count
+        
+        if let unreadCount = count as? Int {
+            if unreadCount == 0 {
+                chatButton.setTitle("      Chat      ", forState: .Normal)
+            } else {
+                chatButton.setTitle("      Chat (\(unreadCount))      ", forState: .Normal)
+            }
+        }
     }
     
 // end

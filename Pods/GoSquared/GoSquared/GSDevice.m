@@ -4,31 +4,33 @@
 //
 //  Created by Giles Williams on 15/10/2014.
 //  Copyright (c) 2014 Urban Massage. All rights reserved.
-//  Copyright (c) 2015 Go Squared Ltd. All rights reserved.
+//  Copyright (c) 2015-2016 Go Squared Ltd. All rights reserved.
 //
-
-#import "GSDevice.h"
 
 #import <UIKit/UIKit.h>
 
-static NSString * const kGSUDIDDefaultsKey = @"com.gosquared.defaults.device.UDID";
+#import "GSDevice.h"
 
-static GSDevice *currentGSDevice = nil;
+static NSString * const kGSUDIDDefaultsKey = @"com.gosquared.defaults.device.UDID";
 
 @implementation GSDevice
 
-+ (GSDevice *)currentDevice {
-    if(currentGSDevice == nil) {
-        currentGSDevice = [[GSDevice alloc] init];
-    }
++ (instancetype)currentDevice
+{
+    static GSDevice *currentDevice = nil;
+    static dispatch_once_t onceToken;
 
-    return currentGSDevice;
+    dispatch_once(&onceToken, ^{
+        currentDevice = [[GSDevice alloc] init];
+    });
+    return currentDevice;
 }
 
-- (GSDevice *)init {
+- (instancetype)init
+{
     self = [super init];
 
-    if(self) {
+    if (self) {
         // screen
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         self.screenHeight = [NSNumber numberWithFloat:screenRect.size.height];
@@ -62,21 +64,29 @@ static GSDevice *currentGSDevice = nil;
 
         NSString *appNameStr = [info objectForKey:@"CFBundleName"];
         NSString *appVersionStr = [info objectForKey:@"CFBundleShortVersionString"];
-        NSString *idiomStr = @"iPhone";
-        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) idiomStr = @"iPad";
-        NSString *iOSVersionStr = [versionComponents componentsJoinedByString:@"_"];
 
-        self.userAgent = [NSString stringWithFormat:@"%@/%@ (%@; CPU iPhone OS %@ like Mac OS X)", appNameStr, appVersionStr, idiomStr, iOSVersionStr];
+        NSString *osVersionStr = [versionComponents componentsJoinedByString:@"_"];
+
+        #if TARGET_OS_TV
+            NSString *deviceType = @"Apple TV";
+            self.os = @"tvOS";
+        #else
+            NSString *deviceType = [[UIDevice currentDevice].model componentsSeparatedByString:@" "][0];
+            self.os = @"iOS";
+        #endif
+
+        self.userAgent = [NSString stringWithFormat:@"%@/%@ (%@; CPU OS %@ like Mac OS X)", appNameStr, appVersionStr, deviceType, osVersionStr];
     }
 
     return self;
 }
 
-- (NSString *)deviceIdentifier {
+- (NSString *)deviceIdentifier
+{
     NSString *deviceIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:kGSUDIDDefaultsKey];
 
-    if(deviceIdentifier == nil) {
-        deviceIdentifier = [self createUUID];
+    if (deviceIdentifier == nil) {
+        deviceIdentifier = [[NSUUID alloc] init].UUIDString;
 
         [[NSUserDefaults standardUserDefaults] setObject:deviceIdentifier forKey:kGSUDIDDefaultsKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -84,13 +94,5 @@ static GSDevice *currentGSDevice = nil;
 
     return deviceIdentifier;
 }
-
-- (NSString *)createUUID {
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    return (__bridge NSString *)string;
-}
-
 
 @end

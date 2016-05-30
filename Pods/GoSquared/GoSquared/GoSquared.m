@@ -3,21 +3,22 @@
 //  GoSquared
 //
 //  Created by Edward Wellbrook on 04/11/2015.
-//  Copyright (c) 2015 Go Squared Ltd. All rights reserved.
+//  Copyright (c) 2015-2016 Go Squared Ltd. All rights reserved.
 //
 
 #import "GoSquared.h"
 
 @implementation GoSquared
 
-static GSTracker *tracker = nil;
++ (GSTracker *)sharedTracker
+{
+    static GSTracker *sharedTracker = nil;
+    static dispatch_once_t onceToken;
 
-+ (GSTracker *)sharedTracker {
-    if(tracker == nil) {
-        tracker = [[GSTracker alloc] init];
-    }
-
-    return tracker;
+    dispatch_once(&onceToken, ^{
+        sharedTracker = [[GSTracker alloc] init];
+    });
+    return sharedTracker;
 }
 
 @end
