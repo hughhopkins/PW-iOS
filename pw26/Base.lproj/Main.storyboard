@@ -124,7 +124,6 @@
                                 </state>
                                 <connections>
                                     <action selector="copyOriginal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="o4R-n5-y0g"/>
-                                    <action selector="copyToClipboard:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YJZ-3P-ZA0"/>
                                 </connections>
                             </button>
                         </subviews>
