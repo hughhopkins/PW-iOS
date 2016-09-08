@@ -21,7 +21,7 @@ For instructions using Carthage, [please read their documentation](https://githu
 
 ## Configuration
 
-Make sure you initialise the library with your site token before calling any tracking / people methods otherwise the library will throw an exception. It is recommended to add the below line to your UIApplication's `didFinishLaunchingWithOptions` method.
+Make sure you initialise the library with your project token before calling any tracking / people methods otherwise the library will throw an exception. It is recommended to add the below line to your UIApplication's `didFinishLaunchingWithOptions` method.
 
 **Objective-C:**
 
@@ -32,14 +32,14 @@ Make sure you initialise the library with your site token before calling any tra
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [GoSquared sharedTracker].token = @"your-site-token";
+    [GoSquared sharedTracker].token = @"your-project-token";
     [GoSquared sharedTracker].key   = @"your-api-key";
 
     // optionally set logging level: Debug, Quiet (Default), Silent
     [GoSquared sharedTracker].logLevel = GSLogLevelDebug;
-    
+
     // if your app primarily runs in the background and you want visitors to show in
-    // your Now dashboard, you should set the following to `YES` (default: NO) 
+    // your Now dashboard, you should set the following to `YES` (default: NO)
     [GoSquared sharedTracker].shouldTrackInBackground = YES;
 
     return YES;
@@ -55,14 +55,14 @@ import GoSquared
 
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-    GoSquared.sharedTracker().token = "your-site-token"
+    GoSquared.sharedTracker().token = "your-project-token"
     GoSquared.sharedTracker().key   = "your-api-key"
 
     // optionally set logging level: Debug, Quiet (Default), Silent
     GoSquared.sharedTracker().logLevel = .Debug
-    
+
     // if your app primarily runs in the background and you want visitors to show in
-    // your Now dashboard, you should set the following to `true` (default: false) 
+    // your Now dashboard, you should set the following to `true` (default: false)
     GoSquared.sharedTracker().shouldTrackInBackground = true
 
     return true
@@ -75,7 +75,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 
 > **Note**: This is only available if you installed with CocoaPods.
 
-Make sure you're using the `GoSquared/Autoload` subspec in your Podfile. Configure your Site Token and API Key as described above, and you're good to go!
+Make sure you're using the `GoSquared/Autoload` subspec in your Podfile. Configure your Project Token and API Key as described above, and you're good to go!
 
 If needed, you can disable tracking on indiviual ViewControllers, or set a custom title:
 
@@ -127,8 +127,8 @@ You can use one of the below methods to manually track a UIViewController:
 
 - (void)viewDidAppear
 {
-    [[GoSquared sharedTracker] trackScreen:self.title];
-    [[GoSquared sharedTracker] trackScreen:self.title withPath:@"/custom-url-path"];
+    [[GoSquared sharedTracker] trackScreenWithTitle:self.title];
+    [[GoSquared sharedTracker] trackScreenWithTitle:self.title path:@"/custom-url-path"];
 }
 ```
 
@@ -142,8 +142,8 @@ import GoSquared
 override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
 
-    GoSquared.sharedTracker().trackScreen(self.title)
-    GoSquared.sharedTracker().trackScreen(self.title, withPath:"/custom-url-path")
+    GoSquared.sharedTracker().trackScreen(title: self.title)
+    GoSquared.sharedTracker().trackScreen(title: self.title, path:"/custom-url-path")
 }
 
 ```
@@ -155,13 +155,13 @@ override func viewDidAppear(animated: Bool) {
 **Objective-C:**
 
 ```objc
-[[GoSquared sharedTracker] trackEvent:"event name"];
+[[GoSquared sharedTracker] trackEventWithName:"event name"];
 ```
 
 **Swift:**
 
 ```swift
-GoSquared.sharedTracker().trackEvent("event name")
+GoSquared.sharedTracker().trackEvent(name: "event name")
 ```
 
 ### Track an event with properties
@@ -169,42 +169,72 @@ GoSquared.sharedTracker().trackEvent("event name")
 **Objective-C:**
 
 ```objc
-[[GoSquared sharedTracker] trackEvent:@"event name" properties:@{ @"properties": @"are cool" }];
+[[GoSquared sharedTracker] trackEventWithName:@"event name" properties:@{ @"properties": @"are cool" }];
 ```
 
 **Swift:**
 
 ```swift
-GoSquared.sharedTracker().trackEvent("event name", properties: ["properties": "are cool"])
+GoSquared.sharedTracker().trackEvent(name: "event name", properties: ["properties": "are cool"])
 ```
 
 ## People
 
 ### Identify your user
-To identify a user you will need to provide a `person_id`. This will create a new profile in [GoSquared People](https://www.gosquared.com/customer/en/portal/articles/2170492-an-introduction-to-gosquared-people) where all of the user's session data, events and custom properties will be tracked.
+To identify a user you will need to provide an `id` or `email` property. This will create a new profile in [GoSquared People](https://www.gosquared.com/customer/en/portal/articles/2170492-an-introduction-to-gosquared-people) where all of the user's session data, events and custom properties will be tracked.
 
-The `person_id` can be set to an email address by using the prefix `email:` (see example below).
+If you do not have an `id` to use for the person, one will be created from the email address.
 
-*Note the library caches your identified person_id and uses it again on the next launch. If you do not want this behavior, call `unidentify` after setting the `token` on each launch.*
+> **Note:** the library caches your identified `id` and uses it again on the next launch. If you do not want this behavior, call `unidentify` after setting the `token` on each launch.
 
 **Objective-C:**
 
 ```objc
-// identify with id
-[[GoSquared sharedTracker] identify:@"test-person_id" properties:@{ @"name": @"Test User" }];
+NSDictionary *properties = @{
+                             @"id": @"user-id", // Required if no email address
+                             @"email": @"someone@example.com", // Required if no id
 
-// identify with email
-[[GoSquared sharedTracker] identify:@"email:user@example.com" properties:@{ @"name": @"Test User" }];
+                             // Reserved property names
+                             @"name": @"Test User",
+                             @"username": @"testuser",
+                             @"phone": @"+447901229693",
+                             @"created_at": @"2016-06-07T15:44:20Z", // ISO 8601 formatted NSString
+                             @"company_name": @"GoSquared",
+                             @"company_industry": @"Customer Analytics",
+                             @"company_size": @150000,
+
+                             // Custom properties
+                             @"custom": @{
+                                      // @"custom_property_name": @"custom property value"
+                                         }
+                             };
+
+[[GoSquared sharedTracker] identifyWithProperties:properties];
 ```
 
 **Swift:**
 
 ```swift
-// idenitfy with id
-GoSquared.sharedTracker().identify("test-person_id", properties: ["name" : "Test User"])
+let properties = [
+    "id": "user-id", // Required if no email address
+    "email": "someone@example.com", // Required if no id
 
-// identify with email
-GoSquared.sharedTracker().identify("email:user@example.com", properties: ["name": "Test User"]);
+    // Reserved property names
+    "name": "Test User",
+    "username": "testuser",
+    "phone": "+447901229693",
+    "created_at": "2016-06-07T15:44:20Z", // ISO 8601 formatted String
+    "company_name": "GoSquared",
+    "company_industry": "Customer Analytics",
+    "company_size": 150000,
+
+    // Custom properties
+    "custom": [
+    // "custom_property_name": "custom property value"
+    ]
+]
+
+GoSquared.sharedTracker().identify(properties: properties)
 ```
 
 ### Unidentify (e.g. on logout)
@@ -232,7 +262,7 @@ GSTransactionItem *coke = [GSTransactionItem transactionItemWithName:@"Coca Cola
                                                                price:@0.99
                                                             quantity:@6];
 
-[[GoSquared sharedTracker] trackTransaction:@"unique-id" items: @[ coke ]];
+[[GoSquared sharedTracker] trackTransactionWithId:@"unique-id" items: @[ coke ]];
 ```
 
 **Swift:**
@@ -240,7 +270,7 @@ GSTransactionItem *coke = [GSTransactionItem transactionItemWithName:@"Coca Cola
 ```swift
 let coke = GSTransactionItem(name: "Coca Cola", price: 0.99, quantity: 6)
 
-GoSquared.sharedTracker().trackTransaction("unique-id", items: [coke])
+GoSquared.sharedTracker().trackTransaction(id: "unique-id", items: [coke])
 ```
 
 ## Code of Conduct

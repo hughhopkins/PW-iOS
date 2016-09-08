@@ -27,8 +27,8 @@
     message.serverId = dictionary[@"id"];
     message.personId = dictionary[@"person_id"];
 
-    NSNumber *ts = dictionary[@"timestamp"];
-    message.timestamp = [ts integerValue];
+    NSNumber *timestamp = dictionary[@"timestamp"];
+    message.timestamp = [timestamp integerValue];
 
     NSArray *entities = dictionary[@"entities"];
     for (NSDictionary *entity in entities.reverseObjectEnumerator) {
@@ -48,18 +48,27 @@
     }
 
     NSDictionary *dataDict = dictionary[@"data"];
-    if (dataDict == nil) {
+    if (dataDict == nil || [dataDict isKindOfClass:NSNull.class]) {
+        return message;
+    }
+
+    NSString *avatarURLString = dataDict[@"avatar"];
+    if (avatarURLString != nil && [avatarURLString isKindOfClass:NSNull.class] == NO) {
+        message.avatar = [[NSURL alloc] initWithString:avatarURLString];
         return message;
     }
 
     NSDictionary *agentDict = dataDict[@"agent"];
-    if (agentDict == nil) {
+    if (agentDict == nil || [agentDict isKindOfClass:NSNull.class]) {
         return message;
     }
 
-    if (agentDict[@"avatar"] != nil) {
-        message.avatar = [[NSURL alloc] initWithString:agentDict[@"avatar"]];
+    avatarURLString = agentDict[@"avatar"];
+    if (avatarURLString == nil || [avatarURLString isKindOfClass:NSNull.class]) {
+        return message;
     }
+
+    message.avatar = [[NSURL alloc] initWithString:avatarURLString];
 
     return message;
 }
