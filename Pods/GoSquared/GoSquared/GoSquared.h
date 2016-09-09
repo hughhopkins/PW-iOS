@@ -8,8 +8,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "GSTracker.h"
+#import "GSTypes.h"
 #import "GSTransaction.h"
 #import "GSTransactionItem.h"
 
