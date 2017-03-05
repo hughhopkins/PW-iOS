@@ -4,17 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-CryptoSwift.xcscheme</key>
+		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-GoSquared.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods.xcscheme</key>
+		<key>Pods-pw26.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>AF684088661A33A10287E479</key>
+		<key>0690E63E5D567AF6B41E3F190CAC03CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BA4787697C9EE87673EFD4B0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F3956C40094C3035552A54D8</key>
+		<key>6BB1C1403B2419F911818DA8413FDA07</key>
 		<dict>
 			<key>primary</key>
 			<true/>
