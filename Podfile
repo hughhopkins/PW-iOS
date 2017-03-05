@@ -1,7 +1,7 @@
+platform :ios, '8.0'
 use_frameworks!
 
-pod "CryptoSwift"
+target 'pw26' do
+	pod 'CryptoSwift'
+end
 
-pod 'GoSquared'
-pod 'GoSquared/Autoload'
-pod 'GoSquared/Chat'

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00A880EC1ACB2E0E00599E3C"
+               BlueprintIdentifier = "00A606231E45FC7B00AE390F"
                BuildableName = "pw26.app"
                BlueprintName = "pw26"
-               ReferencedContainer = "container:pw26.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00A881011ACB2E0E00599E3C"
-               BuildableName = "pw26Tests.xctest"
-               BlueprintName = "pw26Tests"
                ReferencedContainer = "container:pw26.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +32,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00A881011ACB2E0E00599E3C"
+               BlueprintIdentifier = "00A606371E45FC7B00AE390F"
                BuildableName = "pw26Tests.xctest"
                BlueprintName = "pw26Tests"
+               ReferencedContainer = "container:pw26.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "00A606421E45FC7B00AE390F"
+               BuildableName = "pw26UITests.xctest"
+               BlueprintName = "pw26UITests"
                ReferencedContainer = "container:pw26.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A880EC1ACB2E0E00599E3C"
+            BlueprintIdentifier = "00A606231E45FC7B00AE390F"
             BuildableName = "pw26.app"
             BlueprintName = "pw26"
             ReferencedContainer = "container:pw26.xcodeproj">
@@ -79,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A880EC1ACB2E0E00599E3C"
+            BlueprintIdentifier = "00A606231E45FC7B00AE390F"
             BuildableName = "pw26.app"
             BlueprintName = "pw26"
             ReferencedContainer = "container:pw26.xcodeproj">
@@ -98,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A880EC1ACB2E0E00599E3C"
+            BlueprintIdentifier = "00A606231E45FC7B00AE390F"
             BuildableName = "pw26.app"
             BlueprintName = "pw26"
             ReferencedContainer = "container:pw26.xcodeproj">

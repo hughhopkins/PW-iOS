@@ -1,1 +1,0 @@
-../../../GoSquared/GoSquared/GSConfig.h

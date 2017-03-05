@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PW.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
 		<key>pw26.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,17 +12,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>00092DFA1B1225B500B4851D</key>
+		<key>00A606231E45FC7B00AE390F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>00A880EC1ACB2E0E00599E3C</key>
+		<key>00A606371E45FC7B00AE390F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>00A881011ACB2E0E00599E3C</key>
+		<key>00A606421E45FC7B00AE390F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

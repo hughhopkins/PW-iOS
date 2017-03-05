@@ -2,64 +2,44 @@
 //  ViewController.swift
 //  pw26
 //
-//  Created by Hugh Hopkins on 31/03/2015.
-//  Copyright (c) 2015 io.pwapp. All rights reserved.
+//  Created by Hugh Hopkins on 04/02/2017.
+//  Copyright © 2017 io.pwapp. All rights reserved.
 //
 
 import UIKit
 import CryptoSwift
-import GoSquared
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
     
-    // GoSquared Chat
-    @IBAction func presentGoSquaredChat(sender: AnyObject) {
-        self.gs_presentChatViewController();
-    }
-    
-    // copy element
-    @IBOutlet var copyToStyle: UIButton!
-    @IBOutlet weak var chatButton: UIButton!
-    @IBOutlet weak var pwappLinkButton: UIButton!
-    @IBOutlet weak var copy15CharYes: UIButton!
-    @IBOutlet weak var copy15CharNo: UIButton!
-    
+    // UI copy buttons
+    @IBOutlet weak var buttonCopyNormal: UIButton!
+    @IBOutlet weak var buttonCopy15CharYes: UIButton!
+    @IBOutlet weak var buttonWebsiteLink: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        showHide()
+        showHideLink()
         
-        // hide the other buttons
-        copyToStyle.hidden = true
-        copy15CharYes.hidden = true
-        copy15CharNo.hidden = true
         
-        serviceInput.autocorrectionType = UITextAutocorrectionType.No
-        serviceInput.autocapitalizationType = UITextAutocapitalizationType.None
+        // little touches
+        serviceInput.autocorrectionType = UITextAutocorrectionType.no
+        serviceInput.autocapitalizationType = UITextAutocapitalizationType.none
         
-        serviceInput.delegate = self
-        passwordInput.delegate = self
-        
-        // round those corners!
-        copyToStyle.layer.cornerRadius = 5
-        chatButton.layer.cornerRadius = 5
-        pwappLinkButton.layer.cornerRadius = 5
-        copy15CharYes.layer.cornerRadius = 5
-        copy15CharNo.layer.cornerRadius = 5
-        
-        let notifCenter = NSNotificationCenter.defaultCenter()
-        let notifHandler = #selector(ViewController.unreadNotificationHandler(_:))
-        
-        notifCenter.addObserver(self, selector: notifHandler, name: GSUnreadMessageNotification, object:nil)
+        buttonCopyNormal.layer.cornerRadius = 5
+        buttonCopy15CharYes.layer.cornerRadius = 5
+        buttonWebsiteLink.layer.cornerRadius = 5
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
         
         return true;
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
 
@@ -68,60 +48,42 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet var pwOutput: UILabel!
-    
-    @IBOutlet var serviceInput: UITextField!
-    @IBAction func serviceInputEdit(sender: UITextField) {
-        update()
-    }
-
-    @IBOutlet var passwordInput: UITextField!
-    @IBAction func passwordInputEdit(sender: UITextField) {
+    // UI
+    @IBOutlet weak var serviceInput: UITextField!
+    @IBAction func serviceInputEdit(_ sender: Any) {
         update()
     }
     
-    //
+    @IBOutlet weak var passwordInput: UITextField!
+    @IBAction func passwordInputEdit(_ sender: Any) {
+        update()
+    }
+    
+    @IBOutlet weak var pwOutput: UILabel!
+    
+    // PW code
     var pwNew: String = ""
     var shorterPW: String = ""
-    var shorterPWcopy: String = ""
+    var shorterPWCopy: String = ""
     
-    // Show hide differnt copy buttons
-    func showHidePWOutput() {
-        let sites = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays" ]
-        if serviceInput.text! == "" && passwordInput.text! == "" {
-            pwOutput.hidden = true
-            copyToStyle.hidden = true
-            copy15CharYes.hidden = true
-            copy15CharNo.hidden = true
-        } else if sites.contains(serviceInput.text!.lowercaseString) {
-            copyToStyle.hidden = true
-            copy15CharYes.hidden = false
-            copy15CharNo.hidden = false
-        } else {
-            pwOutput.hidden = false
-            copyToStyle.hidden = false
-            copy15CharYes.hidden = true
-            copy15CharNo.hidden = true
-        }
-    }
-    
-    // pw code
     func update() {
-        showHidePWOutput()
+        showHide()
+        showHideLink()
         
-        var srv: String = serviceInput.text!
-        var pass: String = passwordInput.text!
-        var srvLower = srv.lowercaseString
+        let srv: String = serviceInput.text!
+        let pass: String = passwordInput.text!
+        let srvLower = srv.lowercased()
         var pwHash = "\(srvLower)||\(pass)||".sha1()
-        var pwString = String(pwHash)
-        var pwLowered = pwString.lowercaseString
+        
+        var pwLowered = pwHash.lowercased()
+        
         var index = 0
         
         func updateTwo() {
             for string in pwLowered.characters {
                 let s = "\(string)"
                 if index % 2 == 0 {
-                    pwNew += s.uppercaseString
+                    pwNew += s.uppercased()
                 } else {
                     pwNew += s
                 }
@@ -137,45 +99,50 @@ class ViewController: UIViewController, UITextFieldDelegate {
         updateThree()
     }
     
-    // copy buttons 
-    // Original
-    @IBAction func copyOriginal(sender: AnyObject) {
-        UIPasteboard.generalPasteboard().string = pwOutput.text
-        print(pwOutput.text, terminator: "")
-
+    // buttons
+    @IBAction func copyNormal(_ sender: Any) {
+        UIPasteboard.general.string = pwOutput.text
     }
     
-    @IBAction func normalCopyDuringSpecialCase(sender: AnyObject) {
-        UIPasteboard.generalPasteboard().string = pwOutput.text
-        print(pwOutput.text, terminator: "")
-    }
-    
-    @IBAction func CharCopyDuringSpecialCase(sender: AnyObject) {
+    @IBAction func copy15CharYes(_ sender: Any) {
         shorterPW = pwOutput.text!
-        shorterPWcopy = String(shorterPW.characters.prefix(15))
-        UIPasteboard.generalPasteboard().string = shorterPWcopy
-        print(shorterPWcopy)
+        shorterPWCopy = String(shorterPW.characters.prefix(15))
+        UIPasteboard.general.string = shorterPWCopy
     }
     
-    @IBAction func pwappLink(sender: AnyObject) {
-        if let url = NSURL(string: "http://pwapp.io/?utm_source=iOS&utm_medium=link&utm_content=footer&utm_campaign=iOS") {
-            UIApplication.sharedApplication().openURL(url)
+    @IBAction func websiteLink(_ sender: Any) {
+        if let url = URL(string: "http://pwapp.io/?utm_source=iOS&utm_medium=link&utm_content=footer&utm_campaign=iOS") {
+            UIApplication.shared.openURL(url)
         }
     }
     
-    // GoSquared - function for handling notification
-    func unreadNotificationHandler(notification: NSNotification) {
-        let count = notification.userInfo![GSUnreadMessageNotificationCount]
-        // update ui with count
-        
-        if let unreadCount = count as? Int {
-            if unreadCount == 0 {
-                chatButton.setTitle("      Chat      ", forState: .Normal)
-            } else {
-                chatButton.setTitle("      Chat (\(unreadCount))      ", forState: .Normal)
-            }
+    // Show / hide different UI elements
+    func showHide () {
+        let sites = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat"]
+        if serviceInput.text! == "" && passwordInput.text! == "" {
+            pwOutput.isHidden = true
+            buttonCopyNormal.isHidden = true
+            buttonCopy15CharYes.isHidden = true
+        } else if sites.contains(serviceInput.text!.lowercased()) {
+            buttonCopyNormal.isHidden = false
+            buttonCopy15CharYes.isHidden = false
+        } else {
+            pwOutput.isHidden = false
+            buttonCopyNormal.isHidden = false
+            buttonCopy15CharYes.isHidden = true
         }
     }
+    // todo hide buttonWebsiteLink on iPhone 5 SE
+    
+    func showHideLink () {
+        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            print("Landscape")
+            buttonWebsiteLink.isHidden = true
+        } else {
+            buttonWebsiteLink.isHidden = false
+        }
+    }
+    
 // end
 }
 
