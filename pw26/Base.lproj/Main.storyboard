@@ -82,7 +82,7 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckK-FW-qIQ">
                                 <rect key="frame" x="56" y="304" width="264" height="30"/>
                                 <color key="backgroundColor" red="0.63553112745285034" green="0.49893844127655029" blue="0.86921709775924683" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="  Copy PW with Special Character  ">
+                                <state key="normal" title="  Copy PW with Special * Character  ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

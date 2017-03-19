@@ -74,11 +74,6 @@ class ViewController: UIViewController {
     var specialCharPW: String = ""
     var specialCharPWCopy: String = ""
     
-//    func visualisePWUpdates () {
-//        if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
-//            print("(" + "\(pwNew.characters.prefix(15))" + ")" + " " + "\(pwNew.characters.suffix(25))")
-//        }
-    
     func update() {
         showHide()
         showHideLink()
@@ -87,12 +82,10 @@ class ViewController: UIViewController {
         let pass: String = passwordInput.text!
         let srvLower = srv.lowercased()
         var pwHash = "\(srvLower)||\(pass)||".sha1()
-        
         var pwLowered = pwHash.lowercased()
-        
         var index = 0
         
-        func updateTwo() {
+        func pwCapitalising() {
             for string in pwLowered.characters {
                 let s = "\(string)"
                 if index % 2 == 0 {
@@ -102,36 +95,32 @@ class ViewController: UIViewController {
                 }
                 index += 1;
             }
-            test()
+            pwTextFormatting()
         }
-        updateTwo()
         
-        func updateThree() {
-            pwNew = ""
-        }
-        updateThree()
+        pwCapitalising()
+        pwRefresh()
     }
-    
     // to do clean all of this up
     // to do play around with text colour change
     var shortershortPW: String = ""
     var restOfThePW: String = ""
-    func test () {
+    
+    func pwTextFormatting () {
         
         shortershortPW = String(pwNew.characters.prefix(15))
         restOfThePW = String(pwNew.characters.suffix(25))
-        print("lets see if this is even working")
-        print("shortershortPW = " + shortershortPW)
-        print("restOfThePW = " + restOfThePW)
         if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
-            print("(" + "\(shortershortPW)" + ")" + "\(restOfThePW)")
             pwOutput.text = "\(shortershortPW)" + "  " + "\(restOfThePW)"
         } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
             pwOutput.text = "\(pwNew)" + " (*)"
-            print(pwNew)
         } else {
             pwOutput.text = pwNew
         }
+    }
+    
+    func pwRefresh() {
+        pwNew = ""
     }
     
     // buttons
@@ -151,7 +140,6 @@ class ViewController: UIViewController {
         print("specialCharPWCopy = " + specialCharPWCopy)
     }
     
-    
     @IBAction func websiteLink(_ sender: Any) {
         if let url = URL(string: "http://pwapp.io/?utm_source=iOS&utm_medium=link&utm_content=footer&utm_campaign=iOS") {
             UIApplication.shared.openURL(url)
@@ -159,7 +147,6 @@ class ViewController: UIViewController {
     }
     
     // Show / hide different UI elements
-    
     func showHide () {
         if serviceInput.text! == "" && passwordInput.text! == "" {
             pwOutput.isHidden = true
@@ -179,7 +166,6 @@ class ViewController: UIViewController {
         }
     }
     
-
     // todo hide buttonWebsiteLink on iPhone 5 SE
     func showHideLink () {
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
