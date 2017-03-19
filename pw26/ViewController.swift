@@ -11,9 +11,14 @@ import CryptoSwift
 
 class ViewController: UIViewController {
     
+    // todo make a separate github for this
+    let sitesThatPraticeBadSecruity = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat"]
+    let sitesThatPraticeBetterSecruity = ["zendesk"]
+    
     // UI copy buttons
     @IBOutlet weak var buttonCopyNormal: UIButton!
     @IBOutlet weak var buttonCopy15CharYes: UIButton!
+    @IBOutlet weak var buttonCopySpecialChar: UIButton!
     @IBOutlet weak var buttonWebsiteLink: UIButton!
 
     override func viewDidLoad() {
@@ -29,6 +34,7 @@ class ViewController: UIViewController {
         
         buttonCopyNormal.layer.cornerRadius = 5
         buttonCopy15CharYes.layer.cornerRadius = 5
+        buttonCopySpecialChar.layer.cornerRadius = 5
         buttonWebsiteLink.layer.cornerRadius = 5
     }
     
@@ -65,6 +71,13 @@ class ViewController: UIViewController {
     var pwNew: String = ""
     var shorterPW: String = ""
     var shorterPWCopy: String = ""
+    var specialCharPW: String = ""
+    var specialCharPWCopy: String = ""
+    
+//    func visualisePWUpdates () {
+//        if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
+//            print("(" + "\(pwNew.characters.prefix(15))" + ")" + " " + "\(pwNew.characters.suffix(25))")
+//        }
     
     func update() {
         showHide()
@@ -89,7 +102,7 @@ class ViewController: UIViewController {
                 }
                 index += 1;
             }
-            pwOutput.text = pwNew
+            test()
         }
         updateTwo()
         
@@ -97,6 +110,28 @@ class ViewController: UIViewController {
             pwNew = ""
         }
         updateThree()
+    }
+    
+    // to do clean all of this up
+    // to do play around with text colour change
+    var shortershortPW: String = ""
+    var restOfThePW: String = ""
+    func test () {
+        
+        shortershortPW = String(pwNew.characters.prefix(15))
+        restOfThePW = String(pwNew.characters.suffix(25))
+        print("lets see if this is even working")
+        print("shortershortPW = " + shortershortPW)
+        print("restOfThePW = " + restOfThePW)
+        if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
+            print("(" + "\(shortershortPW)" + ")" + "\(restOfThePW)")
+            pwOutput.text = "\(shortershortPW)" + "  " + "\(restOfThePW)"
+        } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
+            pwOutput.text = "\(pwNew)" + " (*)"
+            print(pwNew)
+        } else {
+            pwOutput.text = pwNew
+        }
     }
     
     // buttons
@@ -110,6 +145,13 @@ class ViewController: UIViewController {
         UIPasteboard.general.string = shorterPWCopy
     }
     
+    @IBAction func copySpecialChar(_ sender: Any) {
+        specialCharPW = pwOutput.text!
+        specialCharPWCopy = "\(specialCharPW)" + "*"
+        print("specialCharPWCopy = " + specialCharPWCopy)
+    }
+    
+    
     @IBAction func websiteLink(_ sender: Any) {
         if let url = URL(string: "http://pwapp.io/?utm_source=iOS&utm_medium=link&utm_content=footer&utm_campaign=iOS") {
             UIApplication.shared.openURL(url)
@@ -117,23 +159,28 @@ class ViewController: UIViewController {
     }
     
     // Show / hide different UI elements
+    
     func showHide () {
-        let sites = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat"]
         if serviceInput.text! == "" && passwordInput.text! == "" {
             pwOutput.isHidden = true
             buttonCopyNormal.isHidden = true
             buttonCopy15CharYes.isHidden = true
-        } else if sites.contains(serviceInput.text!.lowercased()) {
+            buttonCopySpecialChar.isHidden = true
+        } else if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
             buttonCopyNormal.isHidden = false
             buttonCopy15CharYes.isHidden = false
+        } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
+            buttonCopyNormal.isHidden = false
+            buttonCopySpecialChar.isHidden = false
         } else {
             pwOutput.isHidden = false
             buttonCopyNormal.isHidden = false
             buttonCopy15CharYes.isHidden = true
         }
     }
-    // todo hide buttonWebsiteLink on iPhone 5 SE
     
+
+    // todo hide buttonWebsiteLink on iPhone 5 SE
     func showHideLink () {
         if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
             print("Landscape")
