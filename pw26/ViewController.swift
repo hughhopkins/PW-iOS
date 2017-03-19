@@ -27,7 +27,6 @@ class ViewController: UIViewController {
         showHide()
         showHideLink()
         
-        
         // little touches
         serviceInput.autocorrectionType = UITextAutocorrectionType.no
         serviceInput.autocapitalizationType = UITextAutocapitalizationType.none
@@ -97,10 +96,10 @@ class ViewController: UIViewController {
             }
             pwTextFormatting()
         }
-        
         pwCapitalising()
         pwRefresh()
     }
+    
     // to do clean all of this up
     // to do play around with text colour change
     var shortershortPW: String = ""
