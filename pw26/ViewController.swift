@@ -12,7 +12,7 @@ import CryptoSwift
 class ViewController: UIViewController {
     
     // todo make a separate github for this
-    let sitesThatPraticeBadSecruity = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat"]
+    let sitesThatPraticeBadSecruity = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat", "line", "natwest"]
     let sitesThatPraticeBetterSecruity = ["zendesk"]
     
     // UI copy buttons
@@ -148,20 +148,25 @@ class ViewController: UIViewController {
     // Show / hide different UI elements
     func showHide () {
         if serviceInput.text! == "" && passwordInput.text! == "" {
+            // When the text field is blank
             pwOutput.isHidden = true
             buttonCopyNormal.isHidden = true
             buttonCopy15CharYes.isHidden = true
             buttonCopySpecialChar.isHidden = true
         } else if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
+            // when it should show the 15 character option
             buttonCopyNormal.isHidden = false
             buttonCopy15CharYes.isHidden = false
         } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
+            // when it should be a special characater
             buttonCopyNormal.isHidden = false
             buttonCopySpecialChar.isHidden = false
         } else {
+            // when it is every other password and should just be normal
             pwOutput.isHidden = false
             buttonCopyNormal.isHidden = false
             buttonCopy15CharYes.isHidden = true
+            buttonCopySpecialChar.isHidden = true
         }
     }
     
