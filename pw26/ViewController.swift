@@ -104,8 +104,11 @@ class ViewController: UIViewController {
     // to do play around with text colour change
     var shortershortPW: String = ""
     var restOfThePW: String = ""
+    var normalPWToBeCopiedToClipboard = ""
     
     func pwTextFormatting () {
+        
+        normalPWToBeCopiedToClipboard = pwNew
         
         shortershortPW = String(pwNew.characters.prefix(15))
         restOfThePW = String(pwNew.characters.suffix(25))
@@ -123,8 +126,9 @@ class ViewController: UIViewController {
     }
     
     // buttons
+    // this needs fixing!!!!!
     @IBAction func copyNormal(_ sender: Any) {
-        UIPasteboard.general.string = pwOutput.text
+        UIPasteboard.general.string = normalPWToBeCopiedToClipboard
     }
     
     @IBAction func copy15CharYes(_ sender: Any) {
@@ -136,7 +140,6 @@ class ViewController: UIViewController {
     @IBAction func copySpecialChar(_ sender: Any) {
         specialCharPW = pwOutput.text!
         specialCharPWCopy = "\(specialCharPW)" + "*"
-        print("specialCharPWCopy = " + specialCharPWCopy)
     }
     
     @IBAction func websiteLink(_ sender: Any) {
