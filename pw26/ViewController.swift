@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CryptoSwift
+//import CryptoSwift
 
 class ViewController: UIViewController {
     
@@ -80,12 +80,13 @@ class ViewController: UIViewController {
         let srv: String = serviceInput.text!
         let pass: String = passwordInput.text!
         let srvLower = srv.lowercased()
-        var pwHash = "\(srvLower)||\(pass)||".sha1()
+        var pwHash = "asdfghj"
+//        var pwHash = "\(srvLower)||\(pass)||".sha1()
         var pwLowered = pwHash.lowercased()
         var index = 0
         
         func pwCapitalising() {
-            for string in pwLowered.characters {
+            for string in pwLowered {
                 let s = "\(string)"
                 if index % 2 == 0 {
                     pwNew += s.uppercased()
@@ -110,8 +111,8 @@ class ViewController: UIViewController {
         
         normalPWToBeCopiedToClipboard = pwNew
         
-        shortershortPW = String(pwNew.characters.prefix(15))
-        restOfThePW = String(pwNew.characters.suffix(25))
+//        shortershortPW = String(pwNew.string.prefix(15))
+//        restOfThePW = String(pwNew.string.suffix(25))
         if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
             pwOutput.text = "\(shortershortPW)" + "  " + "\(restOfThePW)"
         } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
@@ -133,7 +134,7 @@ class ViewController: UIViewController {
     
     @IBAction func copy15CharYes(_ sender: Any) {
         shorterPW = pwOutput.text!
-        shorterPWCopy = String(shorterPW.characters.prefix(15))
+//        shorterPWCopy = String(shorterPW.string.prefix(15))
         UIPasteboard.general.string = shorterPWCopy
     }
     
@@ -175,7 +176,7 @@ class ViewController: UIViewController {
     
     // todo hide buttonWebsiteLink on iPhone 5 SE
     func showHideLink () {
-        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+        if UIDevice.current.orientation.isLandscape {
             print("Landscape")
             buttonWebsiteLink.isHidden = true
         } else {
