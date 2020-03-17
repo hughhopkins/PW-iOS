@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import CryptoSwift
+import CryptoSwift
 
 class ViewController: UIViewController {
     
@@ -80,8 +80,7 @@ class ViewController: UIViewController {
         let srv: String = serviceInput.text!
         let pass: String = passwordInput.text!
         let srvLower = srv.lowercased()
-        var pwHash = "asdfghj"
-//        var pwHash = "\(srvLower)||\(pass)||".sha1()
+        var pwHash = "\(srvLower)||\(pass)||".sha1()
         var pwLowered = pwHash.lowercased()
         var index = 0
         
@@ -111,8 +110,8 @@ class ViewController: UIViewController {
         
         normalPWToBeCopiedToClipboard = pwNew
         
-//        shortershortPW = String(pwNew.string.prefix(15))
-//        restOfThePW = String(pwNew.string.suffix(25))
+        shortershortPW = String(pwNew.prefix(15))
+        restOfThePW = String(pwNew.suffix(25))
         if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
             pwOutput.text = "\(shortershortPW)" + "  " + "\(restOfThePW)"
         } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
@@ -134,7 +133,7 @@ class ViewController: UIViewController {
     
     @IBAction func copy15CharYes(_ sender: Any) {
         shorterPW = pwOutput.text!
-//        shorterPWCopy = String(shorterPW.string.prefix(15))
+        shorterPWCopy = String(shorterPW.prefix(15))
         UIPasteboard.general.string = shorterPWCopy
     }
     
@@ -186,4 +185,3 @@ class ViewController: UIViewController {
     
 // end
 }
-
