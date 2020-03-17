@@ -11,8 +11,9 @@ import CryptoSwift
 
 class ViewController: UIViewController {
     
-    // todo make a separate github for this
+    // this wasn't such a great idea in practice. Enable 15 char for everything but maybe highlight it instead?
     let sitesThatPraticeBadSecruity = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat", "line", "natwest"]
+    // Even worse than the above. Should just create new version.
     let sitesThatPraticeBetterSecruity = ["zendesk"]
     
     // UI copy buttons
@@ -168,7 +169,7 @@ class ViewController: UIViewController {
             // when it is every other password and should just be normal
             pwOutput.isHidden = false
             buttonCopyNormal.isHidden = false
-            buttonCopy15CharYes.isHidden = true
+            buttonCopy15CharYes.isHidden = false
             buttonCopySpecialChar.isHidden = true
         }
     }
