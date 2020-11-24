@@ -3,7 +3,7 @@
 //  pw26Tests
 //
 //  Created by Hugh Hopkins on 04/02/2017.
-//  Copyright © 2017 io.pwapp. All rights reserved.
+//  Copyright © 2020 io.pwapp. All rights reserved.
 //
 
 import XCTest

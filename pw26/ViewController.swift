@@ -3,7 +3,7 @@
 //  pw26
 //
 //  Created by Hugh Hopkins on 04/02/2017.
-//  Copyright © 2017 io.pwapp. All rights reserved.
+//  Copyright © 2020 io.pwapp. All rights reserved.
 //
 
 import UIKit
@@ -11,8 +11,9 @@ import CryptoSwift
 
 class ViewController: UIViewController {
     
-    // todo make a separate github for this
+    // this wasn't such a great idea in practice. Enable 15 char for everything but maybe highlight it instead?
     let sitesThatPraticeBadSecruity = ["apple", "lloyds", "bank", "nike", "tesco", "easyjet", "glassdoor", "spearfishingstore", "europcar", "tsb", "hsbc", "rbs", "barclays", "expedia", "three", "nexmo", "wechat", "line", "natwest"]
+    // Even worse than the above. Should just create new version.
     let sitesThatPraticeBetterSecruity = ["zendesk"]
     
     // UI copy buttons
@@ -85,7 +86,7 @@ class ViewController: UIViewController {
         var index = 0
         
         func pwCapitalising() {
-            for string in pwLowered.characters {
+            for string in pwLowered {
                 let s = "\(string)"
                 if index % 2 == 0 {
                     pwNew += s.uppercased()
@@ -110,8 +111,8 @@ class ViewController: UIViewController {
         
         normalPWToBeCopiedToClipboard = pwNew
         
-        shortershortPW = String(pwNew.characters.prefix(15))
-        restOfThePW = String(pwNew.characters.suffix(25))
+        shortershortPW = String(pwNew.prefix(15))
+        restOfThePW = String(pwNew.suffix(25))
         if sitesThatPraticeBadSecruity.contains(serviceInput.text!.lowercased()) {
             pwOutput.text = "\(shortershortPW)" + "  " + "\(restOfThePW)"
         } else if sitesThatPraticeBetterSecruity.contains(serviceInput.text!.lowercased()) {
@@ -133,7 +134,7 @@ class ViewController: UIViewController {
     
     @IBAction func copy15CharYes(_ sender: Any) {
         shorterPW = pwOutput.text!
-        shorterPWCopy = String(shorterPW.characters.prefix(15))
+        shorterPWCopy = String(shorterPW.prefix(15))
         UIPasteboard.general.string = shorterPWCopy
     }
     
@@ -168,14 +169,14 @@ class ViewController: UIViewController {
             // when it is every other password and should just be normal
             pwOutput.isHidden = false
             buttonCopyNormal.isHidden = false
-            buttonCopy15CharYes.isHidden = true
+            buttonCopy15CharYes.isHidden = false
             buttonCopySpecialChar.isHidden = true
         }
     }
     
     // todo hide buttonWebsiteLink on iPhone 5 SE
     func showHideLink () {
-        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+        if UIDevice.current.orientation.isLandscape {
             print("Landscape")
             buttonWebsiteLink.isHidden = true
         } else {
@@ -185,4 +186,3 @@ class ViewController: UIViewController {
     
 // end
 }
-
